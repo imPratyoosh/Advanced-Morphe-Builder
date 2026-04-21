@@ -1,0 +1,114 @@
+import json
+import re
+from dataclasses import dataclass
+from pathlib import Path
+
+from src.core.config import TEMP_DIR
+from src.core.logger import pr, wpr
+from src.core.network import NetworkManager
+
+APKSIGNER: Path = Path("bin/apksigner.jar")
+
+
+class PrebuiltsError(Exception):
+    pass
+
+@dataclass(slots=True, frozen=True)
+class Prebuilts:
+    cli_jar: Path
+    patches_mpp: Path
+
+def _base_ver(ver: str) -> str:
+    return ver.lstrip("v").split("-")[0]
+
+def _semver_validate(ver: str) -> bool:
+    stripped = _base_ver(ver)
+    return bool(stripped) and bool(re.fullmatch(r"[\d.]+", stripped))
+
+def _ver_key(ver: str) -> tuple[int, ...]:
+    try:
+        return tuple(int(x) for x in _base_ver(ver).split("."))
+    except ValueError:
+        return (0,)
+
+def get_highest_ver(versions: list[str]) -> str:
+    if not (clean := [v.strip() for v in versions if v.strip()]):
+        raise ValueError("Empty version list")
+    if all(_semver_validate(v) for v in clean):
+        return max(clean, key=_ver_key)
+    return clean[0]
+
+def fetch_prebuilts(cli_src: str, cli_ver: str, patches_src: str, patches_ver: str, net: NetworkManager) -> Prebuilts:
+    cl_dir = TEMP_DIR / patches_src.split("/")[0].lower()
+    cl_dir.mkdir(parents=True, exist_ok=True)
+
+    pr(f"Getting prebuilts ({patches_src.split('/')[0]})")
+    specs: list[tuple[str, str, str, str, str]] = [
+        (cli_src,     "CLI",     cli_ver,     "cli",     "jar"),
+        (patches_src, "Patches", patches_ver, "patches", "mpp"),
+    ]
+
+    cli_jar, patches_mpp = (_fetch_single_asset(src=src, tag=tag, ver=ver, fprefix=fprefix, ext=ext, cl_dir=cl_dir, net=net) for src, tag, ver, fprefix, ext in specs)
+    return Prebuilts(cli_jar=cli_jar, patches_mpp=patches_mpp)
+
+def _fetch_single_asset(src: str, tag: str, ver: str, fprefix: str, ext: str, cl_dir: Path, net: NetworkManager) -> Path:
+    dir_path = TEMP_DIR / src.split("/")[0].lower()
+    dir_path.mkdir(parents=True, exist_ok=True)
+
+    base_url = f"https://api.github.com/repos/{src}/releases"
+    if ver == "dev":
+        releases: list[dict] = json.loads(net.gh_get(base_url))
+        tag_names = [r["tag_name"] for r in releases if r.get("tag_name")]
+        ver = get_highest_ver(tag_names)
+
+    api_url = f"{base_url}/latest" if ver == "latest" else f"{base_url}/tags/{ver}"
+    name_ver = "*" if ver == "latest" else ver
+
+    file = _find_cached(dir_path, fprefix, name_ver, ext, exclude_dev=(ver == "latest"))
+    grab_cl = (tag == "Patches") and (file is None)
+    tag_name = ""
+    changelog = ""
+
+    if file is None:
+        release: dict = json.loads(net.gh_get(api_url))
+        tag_name = release.get("tag_name", "")
+        assets: list[dict] = release.get("assets", [])
+        matches = [a for a in assets if a.get("name", "").endswith(f".{ext}")]
+
+        if len(matches) > 1:
+            if len(non_dev := [a for a in matches if "-dev" not in a.get("name", "")]) == 1:
+                matches = non_dev
+        if not matches:
+            raise PrebuiltsError(f"No asset (.{ext}) found for {src} @ {ver}")
+        if len(matches) > 1:
+            wpr("More than 1 asset was found for this release, falling back to the first one found")
+
+        asset = matches[0]
+        file = dir_path / asset["name"]
+        net.gh_download(asset["url"], file)
+        org = src.split("/")[0]
+        changelog = f"> ⚙️ » {tag}: `{org}/{asset['name']}`  \n"
+    else:
+        tag_name = _tag_from_filename(file)
+
+    if grab_cl and tag_name:
+        changelog += f"[🔗 » Changelog](https://github.com/{src}/releases/tag/{tag_name})\n\n"
+
+    if changelog:
+        cl_file = cl_dir / "changelog.md"
+        old = cl_file.read_text(encoding="utf-8") if cl_file.exists() else ""
+        cl_file.write_text(old + changelog, encoding="utf-8")
+
+    return file
+
+def _find_cached(dir_path: Path, fprefix: str, name_ver: str, ext: str, exclude_dev: bool) -> Path | None:
+    pattern = f"*{fprefix}-*.{ext}" if name_ver == "*" else f"*{fprefix}-{name_ver.lstrip('v')}.{ext}"
+    candidates = [f for f in dir_path.glob(pattern) if f.is_file() and not f.name.startswith("tmp.")]
+    if exclude_dev:
+        candidates = [f for f in candidates if "-dev" not in f.name]
+    return max(candidates, key=lambda f: _ver_key(f.name), default=None)
+
+def _tag_from_filename(file: Path) -> str:
+    if m := re.search(r"-(\d[\w.]*)(?:\.\w+)?$", file.name):
+        return f"v{m.group(1)}"
+    return ""
