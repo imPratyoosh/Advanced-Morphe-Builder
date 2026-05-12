@@ -165,7 +165,8 @@ def run_build(data: dict[str, object], config: Config, net: NetworkManager, targ
         with tempfile.NamedTemporaryFile(dir=TEMP_DIR, suffix=".keystore", delete=False) as tf:
             tf.write(base64.b64decode(ks_b64))
             ks_path = Path(tf.name)
-
+    
+    patcher_cache: dict[tuple[str, str, str, str], PatcherCLI] = {}
     try:
         with ThreadPoolExecutor(max_workers=config.parallel_jobs) as pool:
             for entry in entries:
@@ -184,7 +185,10 @@ def run_build(data: dict[str, object], config: Config, net: NetworkManager, targ
                     epr(f"Could not get prebuilts for '{entry.table}': {exc}")
                     continue
 
-                patcher = PatcherCLI(prebuilts.cli_jar, prebuilts.patches_mpp, APKSIGNER, ks_path=ks_path)
+                if prebuilts_key not in patcher_cache:
+                    patcher_cache[prebuilts_key] = PatcherCLI(prebuilts.cli_jar, prebuilts.patches_mpp, APKSIGNER, ks_path=ks_path)
+
+                patcher = patcher_cache[prebuilts_key]
                 arches = ("arm64-v8a", "arm-v7a") if entry.arch == "both" else (entry.arch,)
 
                 for arch in arches:
