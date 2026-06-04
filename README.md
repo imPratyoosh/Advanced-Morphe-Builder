@@ -155,6 +155,7 @@ For those of you who would like to be 100% sure that the APK files you download 
 This repository is based on the [krvstek/uni-apks](https://github.com/krvstek/uni-apks) template (GPL-3.0), with the following transparent changes (see [changes](https://github.com/ngbangg/builder-for-morphe/commits/main/?author=nvbangg)):
 
 - Support for more apps
+- Support for automatically building only changed apps
 - UI and configuration improvements to easily build and customize your own apps
 - No manual configuration required for each `brand` in `ci.yml`
 - Automatic upstream sync support

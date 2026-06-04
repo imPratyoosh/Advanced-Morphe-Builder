@@ -6,15 +6,74 @@ from src.core.config import CONFIG_PATH, load_toml, parse_app_entries, parse_con
 from src.core.logger import abort, epr, wpr
 from src.core.network import NetworkManager, ResourceNotFoundError
 
+def _fetch_latest_release(source: str, net: NetworkManager) -> tuple[str, str]:
+    gitlab = source.startswith("gitlab:")
+    if source.startswith("github:") or source.startswith("gitlab:"):
+        clean_src = source.split(":", 1)[1]
+    else:
+        clean_src = source
+
+    if gitlab:
+        project = clean_src.replace("/", "%2F")
+        url = f"https://gitlab.com/api/v4/projects/{project}/releases/permalink/latest"
+        rel = json.loads(net.get(url))
+        return rel.get("description", "") or "", rel.get("released_at", "") or ""
+    else:
+        url = f"https://api.github.com/repos/{clean_src}/releases/latest"
+        rel = json.loads(net.get(url, headers=net._gh_headers))
+        return rel.get("body", "") or "", rel.get("published_at", "") or ""
+
 
 def get_matrix(source: str) -> None:
     data = load_toml(CONFIG_PATH)
     main_cfg = parse_config(data)
     source_lower = source.lower()
+
+    is_auto_ci = os.getenv("IS_CI", "false").lower() == "true"
+    build_changed_only = data.get("build-changed-only", [])
+    filter_by_changelog = is_auto_ci and (source_lower in [str(b).lower() for b in build_changed_only])
+
+    changelog_text = ""
+    if filter_by_changelog:
+        patches_source = ""
+        for entry in parse_app_entries(data, main_cfg):
+            if entry.enabled and entry.brand.lower() == source_lower:
+                patches_source = entry.patches_source
+                break
+        
+        if patches_source:
+            with NetworkManager() as net:
+                repo = os.getenv("GITHUB_REPOSITORY")
+                if repo:
+                    try:
+                        our_releases_raw = net.get(f"https://api.github.com/repos/{repo}/releases?per_page=100", headers=net._gh_headers)
+                        our_date = ""
+                        for rel in json.loads(our_releases_raw):
+                            tag = rel.get("tag_name", "")
+                            brand = tag.split("-", 1)[1] if "-" in tag else ""
+                            if brand.lower() == source_lower:
+                                our_date = rel.get("published_at", "") or ""
+                                break
+                        if not our_date:
+                            filter_by_changelog = False
+                    except Exception:
+                        pass
+
+                if filter_by_changelog:
+                    try:
+                        changelog_text, _ = _fetch_latest_release(patches_source, net)
+                    except Exception as exc:
+                        epr(f"Failed to fetch changelog for '{patches_source}': {exc}")
+                        filter_by_changelog = False
+
     include: list[dict[str, str]] = []
     for entry in parse_app_entries(data, main_cfg):
         if not entry.enabled or entry.brand.lower() != source_lower:
             continue
+
+        if filter_by_changelog and changelog_text:
+            if not any(kw in changelog_text.lower() for kw in entry.changelog_keywords):
+                continue
 
         if entry.arch == "both":
             include.extend([{"id": entry.table, "arch": "arm64-v8a"}, {"id": entry.table, "arch": "armeabi-v7a"}])
@@ -62,9 +121,9 @@ def check_builds_needed() -> None:
         for brand, patches_source in seen.items():
             our_date = our_releases_by_brand.get(brand, "")
             upstream_date = ""
+            changelog_text = ""
             try:
-                upstream_rel = json.loads(net.get(f"https://api.github.com/repos/{patches_source}/releases/latest", headers=net._gh_headers))
-                upstream_date = upstream_rel.get("published_at", "") or ""
+                changelog_text, upstream_date = _fetch_latest_release(patches_source, net)
             except ResourceNotFoundError:
                 epr(f"No upstream release found for '{patches_source}', skipping brand '{brand}'")
                 continue
@@ -74,6 +133,16 @@ def check_builds_needed() -> None:
                 continue
 
             if not our_date or upstream_date > our_date:
+                build_changed_only = data.get("build-changed-only", [])
+                if our_date and brand in [str(b).lower() for b in build_changed_only]:
+                    has_apps = False
+                    for app in parse_app_entries(data, main_cfg):
+                        if app.enabled and app.brand.lower() == brand:
+                            if any(kw in changelog_text.lower() for kw in app.changelog_keywords):
+                                has_apps = True
+                                break
+                    if not has_apps:
+                        continue
                 brands_to_build.append(brand)
 
     print(json.dumps(brands_to_build))

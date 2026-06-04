@@ -1,4 +1,5 @@
 strict-sigcheck = false
+build-changed-only = ["de-vanced","hoo-dles", "paresh", "piko", "morphe"]
 
 [YouTube]
 apkmirror-dlurl = "https://www.apkmirror.com/apk/google-inc/youtube"
@@ -8,6 +9,7 @@ uptodown-dlurl = "https://youtube.en.uptodown.com/android"
 apkmirror-dlurl = "https://www.apkmirror.com/apk/google-inc/youtube-music"
 uptodown-dlurl = "https://youtube-music.en.uptodown.com/android"
 arch = "both"
+changelog-keywords = ["YouTube Music"]
 
 [Reddit]
 apkmirror-dlurl = "https://www.apkmirror.com/apk/redditinc/reddit"
@@ -17,17 +19,20 @@ uptodown-dlurl = "https://reddit-official-app.en.uptodown.com/android"
 apkmirror-dlurl = "https://www.apkmirror.com/apk/google-inc/youtube"
 uptodown-dlurl = "https://youtube.en.uptodown.com/android"
 version = "21.21.80"
+changelog-keywords = ["YouTube"]
 
 [YT-Music-Experimental]
 apkmirror-dlurl = "https://www.apkmirror.com/apk/google-inc/youtube-music"
 uptodown-dlurl = "https://youtube-music.en.uptodown.com/android"
 arch = "both"
 version = "9.21.51"
+changelog-keywords = ["YouTube Music"]
 
 [Reddit-Experimental]
 apkmirror-dlurl = "https://www.apkmirror.com/apk/redditinc/reddit"
 uptodown-dlurl = "https://reddit-official-app.en.uptodown.com/android"
 version = "2026.21.0"
+changelog-keywords = ["Reddit"]
 
 [X-Twitter]
 patches-source = "github:crimera/piko"
@@ -36,6 +41,7 @@ github-dlurl = "https://github.com/krvstek/uni-storage/releases/tag/x-twitter"
 # apkmirror-dlurl = "https://www.apkmirror.com/apk/x-corp/twitter"
 # uptodown-dlurl = "https://twitter.en.uptodown.com/android"
 skip-sigcheck = true
+changelog-keywords = ["Twitter"]
 
 [Instagram]
 patches-source = "github:crimera/piko"
