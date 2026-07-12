@@ -59,14 +59,16 @@ version = "2026.26.0"
 "github:jkennethcarino/adobo" = { version = "dev", include = ["Hide awards", "Disable home feed auto-refresh", "Disable home screen redirect", "Colorize comment indent lines"], exclude = ["Disable home feed swipe", "Disable post detail swipe", "Disable screenshot banner", "Hide post view counts", "Hide Ask button from search bar", "Hide community highlights", "Hide prominent search bar", "Hide share count", "Hide upvote scores", "Hide user community badges", "Hide user flairs", "Open external links directly", "Remove ads and telemetry", "Sanitize share links"] }
 
 [X-Twitter]
-enabled = false
-brand = "piko"
+enabled = true
+brand = "piko-x-shim"
 apkmirror-dlurl = "https://www.apkmirror.com/apk/x-corp/twitter"
 uptodown-dlurl = "https://twitter.en.uptodown.com/android"
+version = "12.2.0-release.0"
+arch = "arm64-v8a"
 
 [X-Twitter.patches]
-"github:crimera/piko" = ["Browse tweet object", "Dynamic color"]
-"gitlab:inotia00/x-shim" = []
+"github:crimera/piko" = { version = "dev", include = ["Browse tweet object"] }
+"gitlab:inotia00/x-shim" = { version = "dev", [] }
 
 [Instagram]
 enabled = true
