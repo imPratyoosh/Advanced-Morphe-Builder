@@ -68,7 +68,7 @@ arch = "arm64-v8a"
 
 [X-Twitter.patches]
 "github:crimera/piko" = { version = "dev", include = ["Browse tweet object"] }
-"gitlab:inotia00/x-shim" = { version = "dev", [] }
+"gitlab:inotia00/x-shim" = { version = "dev" }
 
 [Instagram]
 enabled = true
