@@ -79,7 +79,7 @@ github-dlurl = "https://github.com/krvstek/uni-storage/releases/tag/instagram"
 arch = "arm64-v8a"
 
 [Instagram.patches]
-"github:crimera/piko" = { include = ["Clone"], exclude = ["Change version code"] }
+"github:crimera/piko" = { version = "dev", include = ["Clone"], exclude = ["Change version code"] }
 
 [Niagara-Launcher]
 enabled = true
