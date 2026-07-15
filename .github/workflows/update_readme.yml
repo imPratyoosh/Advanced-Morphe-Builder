@@ -16,7 +16,7 @@ jobs:
     
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v4.2.2
 
       - name: Download Build Logs via GitHub CLI
         env:
@@ -26,7 +26,7 @@ jobs:
           gh run view ${{ github.event.workflow_run.id }} --log > build.log
 
       - name: Set up Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: '3.11'
 
@@ -34,7 +34,7 @@ jobs:
         run: python update_readme.py
 
       - name: Commit Updated README
-        uses: stefanzweifel/git-auto-commit-action@v5
+        uses: stefanzweifel/git-auto-commit-action@v5.1.0
         with:
           commit_message: "docs: dynamically update README and memory from latest build logs"
           file_pattern: 'README.md apps_state.json' 
