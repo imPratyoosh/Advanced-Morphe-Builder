@@ -1,0 +1,41 @@
+name: Auto-Update README
+
+# This tells GitHub to wait until either of your main workflows finish
+on:
+  workflow_run:
+    workflows: ["CI", "Build APKs"] 
+    types:
+      - completed
+
+jobs:
+  update-docs:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    permissions:
+      contents: write
+      actions: read 
+    
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Download Build Logs via GitHub CLI
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Downloads the entire raw log of the build that just finished
+          gh run view ${{ github.event.workflow_run.id }} --log > build.log
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Run Python Script
+        run: python update_readme.py
+
+      - name: Commit Updated README
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "docs: dynamically update README from latest build logs"
+          file_pattern: 'README.md'
