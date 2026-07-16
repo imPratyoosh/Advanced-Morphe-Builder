@@ -146,13 +146,28 @@ Click on an app below to see detailed info.
 
 * **App Version:** `2026.28.0`
 * **Patch Bundles:** `jkennethcarino/adobo, MorpheApp/morphe-patches`
-* **Patches Version:** `1.3.0, 1.34.0.`
+* **Patches Version:** `1.3.0, 1.35.0.`
 
-* **Applied Patches (4):**
+* **Applied Patches (19):**
   * `Colorize comment indent lines`
   * `Disable home feed auto-refresh`
   * `Disable home screen redirect`
+  * `Disable modern home`
+  * `Disable screenshot popup`
+  * `Hide Ask button`
+  * `Hide Trending shelves`
+  * `Hide ads`
   * `Hide awards`
+  * `Hide communities shelf`
+  * `Hide community menu badge`
+  * `Hide navigation buttons`
+  * `Hide sidebar components`
+  * `Open links directly`
+  * `Open links externally`
+  * `Remove subreddit dialog`
+  * `Sanitize sharing links`
+  * `Show view count`
+  * `Spoof signature`
 
 * **Excluded Patches (5):**
   * `Disable screenshot banner`
@@ -250,9 +265,9 @@ Click on an app below to see detailed info.
 
 * **App Version:** `9.26.51`
 * **Patch Bundles:** `MorpheApp/morphe-patches`
-* **Patches Version:** `1.34.0.`
+* **Patches Version:** `1.35.0.`
 
-* **Applied Patches (30):**
+* **Applied Patches (33):**
   * `Bypass certificate checks`
   * `Change header`
   * `Change miniplayer color`
@@ -260,6 +275,7 @@ Click on an app below to see detailed info.
   * `Check watch history domain name resolution`
   * `Disable DRC audio`
   * `Disable QUIC protocol`
+  * `Disable dislike redirection`
   * `Downloads`
   * `Enable exclusive audio playback`
   * `Enable forced miniplayer`
@@ -275,11 +291,13 @@ Click on an app below to see detailed info.
   * `Miniplayer previous and next buttons`
   * `Navigation bar`
   * `Network proxy`
-  * `Permanent repeat`
+  * `Remember repeat state`
+  * `Remember shuffle state`
   * `Remove background playback restrictions`
   * `Sanitize sharing links`
   * `Scrobbling`
   * `SponsorBlock`
+  * `Spoof app version`
   * `Spoof video streams`
   * `Theme`
   * `Track crossfade`
@@ -295,7 +313,7 @@ Click on an app below to see detailed info.
 
 * **App Version:** `9.15.51`
 * **Patch Bundles:** `MorpheApp/morphe-patches`
-* **Patches Version:** `1.35.0`
+* **Patches Version:** `1.35.0.`
 
 * **Applied Patches (33):**
   * `Bypass certificate checks`
@@ -343,7 +361,7 @@ Click on an app below to see detailed info.
 
 * **App Version:** `21.26.360`
 * **Patch Bundles:** `MorpheApp/morphe-patches`
-* **Patches Version:** `1.34.0.`
+* **Patches Version:** `1.35.0.`
 
 * **Applied Patches (70):**
   * `Add to queue`
@@ -426,9 +444,9 @@ Click on an app below to see detailed info.
 <details>
 <summary><b>10. YouTube-Stable</b></summary>
 
-* **App Version:** `20.51.39`
+* **App Version:** `21.04.223`
 * **Patch Bundles:** `MorpheApp/morphe-patches`
-* **Patches Version:** `1.35.0`
+* **Patches Version:** `1.35.0.`
 
 * **Applied Patches (70):**
   * `Add to queue`
