@@ -12,8 +12,8 @@ Click on an app below to see detailed info.
 <summary><b>1. Gboard</b></summary>
 
 * **App Version:** `17.0.10.880768217-release-arm64-v8a`
-* **Patch Bundles:** `jkennethcarino/adobo, jasonwu1994/Gboard-patches`
-* **Patches Version:** `1.3.0, 1.14.0.`
+* **Patch Bundles:** `jasonwu1994/Gboard-patches, jkennethcarino/adobo`
+* **Patches Version:** `1.14.0., 1.3.0`
 
 * **Applied Patches (26):**
   * `AI Writing Tools`
@@ -116,8 +116,8 @@ Click on an app below to see detailed info.
 <summary><b>3. Niagara-Launcher</b></summary>
 
 * **App Version:** `1.16.15`
-* **Patch Bundles:** `hoo-dles/morphe-patches, MorpheApp/morphe-patches`
-* **Patches Version:** `1.40.0, 1.35.0.`
+* **Patch Bundles:** `MorpheApp/morphe-patches, hoo-dles/morphe-patches`
+* **Patches Version:** `1.35.0., 1.40.0`
 
 * **Applied Patches (3):**
   * `Disable Play Store updates`
@@ -129,8 +129,8 @@ Click on an app below to see detailed info.
 <summary><b>4. Pinterest</b></summary>
 
 * **App Version:** `14.24.0`
-* **Patch Bundles:** `MorpheApp/morphe-patches, browzomje/browzomje-patches`
-* **Patches Version:** `1.35.0., 1.3.2.`
+* **Patch Bundles:** `browzomje/browzomje-patches, MorpheApp/morphe-patches`
+* **Patches Version:** `1.3.2., 1.35.0.`
 
 * **Applied Patches (6):**
   * `Copy direct link`
@@ -144,30 +144,16 @@ Click on an app below to see detailed info.
 <details>
 <summary><b>5. Reddit</b></summary>
 
-* **App Version:** `2026.28.0`
-* **Patch Bundles:** `jkennethcarino/adobo, MorpheApp/morphe-patches`
-* **Patches Version:** `1.3.0, 1.35.0.`
+* **App Version:** `2026.29.0`
+* **Patch Bundles:** `ch3thanhs/stylus, MorpheApp/morphe-patches, jkennethcarino/adobo`
+* **Patches Version:** `1.0.0., 1.35.0., 1.3.0`
 
-* **Applied Patches (19):**
+* **Applied Patches (5):**
   * `Colorize comment indent lines`
   * `Disable home feed auto-refresh`
   * `Disable home screen redirect`
-  * `Disable modern home`
-  * `Disable screenshot popup`
-  * `Hide Ask button`
-  * `Hide Trending shelves`
-  * `Hide ads`
   * `Hide awards`
-  * `Hide communities shelf`
   * `Hide community menu badge`
-  * `Hide navigation buttons`
-  * `Hide sidebar components`
-  * `Open links directly`
-  * `Open links externally`
-  * `Remove subreddit dialog`
-  * `Sanitize sharing links`
-  * `Show view count`
-  * `Spoof signature`
 
 * **Excluded Patches (5):**
   * `Disable screenshot banner`
@@ -181,8 +167,8 @@ Click on an app below to see detailed info.
 <summary><b>6. Twitter</b></summary>
 
 * **App Version:** `12.7.1-release.0`
-* **Patch Bundles:** `crimera/piko, inotia00/x-shim`
-* **Patches Version:** `3.8.0, 1.7.0.`
+* **Patch Bundles:** `inotia00/x-shim, crimera/piko`
+* **Patches Version:** `1.7.0., 3.8.0`
 
 * **Applied Patches (73):**
   * `Abstract shim layer`
