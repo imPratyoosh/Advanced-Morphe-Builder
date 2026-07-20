@@ -54,7 +54,7 @@ Click on an app below to see detailed info.
 * **Patch Bundles:** `crimera/piko`
 * **Patches Version:** `3.8.0`
 
-* **Applied Patches (52):**
+* **Applied Patches (53):**
   * `Add settings`
   * `Allow user network certificate`
   * `Amoled theme`
@@ -74,6 +74,7 @@ Click on an app below to see detailed info.
   * `Disable screenshot detection`
   * `Disable stories`
   * `Disable story flipping`
+  * `Disable swipe to create`
   * `Disable typing status`
   * `Disable video autoplay`
   * `Download media`
@@ -116,8 +117,8 @@ Click on an app below to see detailed info.
 <summary><b>3. Niagara-Launcher</b></summary>
 
 * **App Version:** `1.16.15`
-* **Patch Bundles:** `MorpheApp/morphe-patches, hoo-dles/morphe-patches`
-* **Patches Version:** `1.35.0., 1.40.0`
+* **Patch Bundles:** `hoo-dles/morphe-patches, MorpheApp/morphe-patches`
+* **Patches Version:** `1.40.0, 1.35.0.`
 
 * **Applied Patches (3):**
   * `Disable Play Store updates`
@@ -129,8 +130,8 @@ Click on an app below to see detailed info.
 <summary><b>4. Pinterest</b></summary>
 
 * **App Version:** `14.24.0`
-* **Patch Bundles:** `browzomje/browzomje-patches, MorpheApp/morphe-patches`
-* **Patches Version:** `1.3.2., 1.35.0.`
+* **Patch Bundles:** `MorpheApp/morphe-patches, browzomje/browzomje-patches`
+* **Patches Version:** `1.35.0., 1.3.2.`
 
 * **Applied Patches (6):**
   * `Copy direct link`
@@ -146,7 +147,7 @@ Click on an app below to see detailed info.
 
 * **App Version:** `2026.28.0`
 * **Patch Bundles:** `ch3thanhs/stylus, MorpheApp/morphe-patches, jkennethcarino/adobo`
-* **Patches Version:** `1.0.0., 1.35.0., 1.3.0`
+* **Patches Version:** `1.0.1., 1.35.0., 1.3.0`
 
 * **Applied Patches (20):**
   * `Colorize comment indent lines`
@@ -310,145 +311,11 @@ Click on an app below to see detailed info.
 </details>
 
 <details>
-<summary><b>8. YT-Music-Stable</b></summary>
-
-* **App Version:** `9.15.51`
-* **Patch Bundles:** `MorpheApp/morphe-patches`
-* **Patches Version:** `1.36.0`
-
-* **Applied Patches (34):**
-  * `Bypass certificate checks`
-  * `Change header`
-  * `Change miniplayer color`
-  * `Change start page`
-  * `Check watch history domain name resolution`
-  * `Crossfade`
-  * `Disable DRC audio`
-  * `Disable QUIC protocol`
-  * `Disable dislike redirection`
-  * `Downloads`
-  * `Enable exclusive audio playback`
-  * `Enable forced miniplayer`
-  * `Enable swipe to dismiss miniplayer`
-  * `Force original audio`
-  * `GmsCore support`
-  * `Hide ads`
-  * `Hide buttons`
-  * `Hide filter bar`
-  * `Hide flyout menu components`
-  * `Hide layout components`
-  * `Hide music action buttons`
-  * `Miniplayer previous and next buttons`
-  * `Navigation bar`
-  * `Network proxy`
-  * `Remember repeat state`
-  * `Remember shuffle state`
-  * `Remove background playback restrictions`
-  * `Return YouTube Dislike`
-  * `Sanitize sharing links`
-  * `Scrobbling`
-  * `SponsorBlock`
-  * `Spoof app version`
-  * `Spoof video streams`
-  * `Theme`
-
-* **Excluded Patches (3):**
-  * `Custom branding`
-  * `Disable Play Store updates`
-  * `Enable debugging`
-</details>
-
-<details>
-<summary><b>9. YouTube</b></summary>
+<summary><b>8. YouTube</b></summary>
 
 * **App Version:** `21.26.360`
 * **Patch Bundles:** `MorpheApp/morphe-patches`
 * **Patches Version:** `1.35.0.`
-
-* **Applied Patches (70):**
-  * `Add to queue`
-  * `Alternative thumbnails`
-  * `Ambient mode`
-  * `Bypass image region restrictions`
-  * `Bypass link redirects`
-  * `Captions`
-  * `Change form factor`
-  * `Change header`
-  * `Change start page`
-  * `Check watch history domain name resolution`
-  * `Copy video link`
-  * `Custom player overlay opacity`
-  * `Disable DRC audio`
-  * `Disable QUIC protocol`
-  * `Disable Shorts resuming on startup`
-  * `Disable double tap actions`
-  * `Disable fullscreen gestures`
-  * `Disable haptic feedback`
-  * `Disable layout updates`
-  * `Disable player popup panels`
-  * `Disable rolling number animations`
-  * `Disable sign in to TV popup`
-  * `Disable video codecs`
-  * `Double tap to seek`
-  * `Downloads`
-  * `Exit fullscreen mode`
-  * `Force original audio`
-  * `GmsCore support`
-  * `Hide Shorts components`
-  * `Hide ads`
-  * `Hide autoplay preview`
-  * `Hide end screen cards`
-  * `Hide end screen suggested video`
-  * `Hide info cards`
-  * `Hide layout components`
-  * `Hide player flyout menu components`
-  * `Hide player overlay buttons`
-  * `Hide related video overlay`
-  * `Hide related videos`
-  * `Hide timestamp`
-  * `Hide video action buttons`
-  * `Loop video`
-  * `Media notification controls`
-  * `Miniplayer`
-  * `Navigation bar`
-  * `Network proxy`
-  * `Open Shorts in regular player`
-  * `Open channel of live avatar`
-  * `Open links externally`
-  * `Open system share sheet`
-  * `Open videos fullscreen`
-  * `Override YouTube Music buttons`
-  * `Play all`
-  * `Playback speed`
-  * `Reload video`
-  * `Remove background playback restrictions`
-  * `Remove viewer discretion dialog`
-  * `Return YouTube Dislike`
-  * `Sanitize sharing links`
-  * `Save to watch later`
-  * `Seekbar`
-  * `Shorts autoplay`
-  * `SponsorBlock`
-  * `Spoof app version`
-  * `Spoof device dimensions`
-  * `Spoof video streams`
-  * `Swipe controls`
-  * `Theme`
-  * `Video quality`
-  * `Voice over translation`
-
-* **Excluded Patches (3):**
-  * `Custom branding`
-  * `Disable Play Store updates`
-  * `Enable debugging`
-</details>
-
-<details>
-<summary><b>10. YouTube-Stable</b></summary>
-
-* **App Version:** `21.04.223`
-* **Patch Bundles:** `MorpheApp/morphe-patches`
-* **Patches Version:** `1.36.0`
 
 * **Applied Patches (70):**
   * `Add to queue`
